@@ -1,0 +1,21 @@
+library(rvest) 
+library(dplyr)
+library(robotstxt)
+
+path = paths_allowed ("https://bokaro.nic.in/public-utility-category/schools/")
+
+link <-"https://bokaro.nic.in/public-utility-category/schools/"
+
+web <- read_html (link) 
+
+Schoolname <- web %>% html_nodes (".heading4")%>% html_text()
+
+View (Schoolname)  
+
+PO<- web %>% html_nodes(".border a") %>% html_text()
+
+View(PO)
+
+School.rankings <- data.frame(Schoolname,PO)
+
+write.csv (School.rankings, "My webscrapping.csv")
